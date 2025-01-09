@@ -29,9 +29,9 @@ public class PlayerScoreListController {
 
             if (inputStream != null) {
                 playerScoreList = objectMapper.readValue(inputStream, new TypeReference<Map<String, Integer>>() {});
-                System.out.println("Scores loaded successfully.");
+                System.out.println("ScoreList loaded successfully.");
             } else {
-                System.out.println("No saved scores found, starting fresh.");
+                System.out.println("ScoreList is empty.");
             }
         } catch (IOException e) {
             System.err.println("Failed to load scores: " + e.getMessage());

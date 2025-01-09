@@ -5,6 +5,10 @@ public class PlayerDetails {
     String password;
     String email;
 
+    public PlayerDetails() {
+
+    }
+
     public PlayerDetails(String password, String email) {
         this.password = password;
         this. email = email;
