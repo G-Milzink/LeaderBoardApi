@@ -1,6 +1,5 @@
 package com.milzink.leaderboard_api.controllers;
 
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.milzink.leaderboard_api.utillities.ScoreDTO;
@@ -20,6 +19,24 @@ import java.util.Map;
 public class ScoreController {
 
     Map<String, Integer> scoreStorage = new HashMap<>();
+
+    @PostConstruct
+    public void loadScoreData() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            // Load the file from the classpath
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/scoreData.json");
+
+            if (inputStream != null) {
+                scoreStorage = objectMapper.readValue(inputStream, new TypeReference<Map<String, Integer>>() {});
+                System.out.println("Scores loaded successfully.");
+            } else {
+                System.out.println("No saved scores found, starting fresh.");
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to load scores: " + e.getMessage());
+        }
+    }
 
     @PostMapping("/store")
     public ResponseEntity<String> postScore(@RequestBody ScoreDTO playerScore) {
@@ -61,24 +78,6 @@ public class ScoreController {
             return ResponseEntity.ok(scoreStorage.get(playerId));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("playerId not found");
-        }
-    }
-
-    @PostConstruct
-    public void loadScoreData() {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            // Load the file from the classpath
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/scoreData.json");
-
-            if (inputStream != null) {
-                scoreStorage = objectMapper.readValue(inputStream, new TypeReference<Map<String, Integer>>() {});
-                System.out.println("Scores loaded successfully.");
-            } else {
-                System.out.println("No saved scores found, starting fresh.");
-            }
-        } catch (IOException e) {
-            System.err.println("Failed to load scores: " + e.getMessage());
         }
     }
 

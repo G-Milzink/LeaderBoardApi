@@ -1,0 +1,11 @@
+Ok now I want to create a controller that simply checks if a particular playerId is already present in scoreData.json.
+
+It will be called: PlayerExistenceController
+
+It will generally be called BEFORE ScoreController so it should be able to read scoreData.json and
+extract all playerId's (the key's in our json) and use them to populate an arraylist which will
+then be used to check if the supplied playerId already exists or not.
+
+I am asuming I will need to setup a two methods:
+one for the Getrequest (@Getmapping) and
+one for reading the data from file (@Postconstruct) similar to out ScoreController class?
