@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/score")
-public class ScoreController {
+public class PlayerScoreListController {
 
     Map<String, Integer> scoreStorage = new HashMap<>();
 

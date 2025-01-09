@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/player")
-public class PlayerExistenceController {
+public class PlayerListController {
 
     private ArrayList<String> playerIds = new ArrayList<>();
 
