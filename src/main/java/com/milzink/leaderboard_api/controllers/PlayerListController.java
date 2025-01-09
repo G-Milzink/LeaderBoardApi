@@ -17,11 +17,11 @@ public class PlayerListController {
 
     private ArrayList<String> playerIds = new ArrayList<>();
 
-    // Method to reload player IDs from the scoreData.json file in the resources folder
+    // Method to reload player IDs from the playerScoreList.json file in the resources folder
     private void loadPlayerIds() {
         try {
             // Load the file as a resource from the classpath
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/scoreData.json");
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/playerScoreList.json");
 
             if (inputStream != null) {
                 ObjectMapper objectMapper = new ObjectMapper();

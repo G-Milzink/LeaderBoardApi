@@ -18,17 +18,17 @@ import java.util.Map;
 @RequestMapping("/score")
 public class PlayerScoreListController {
 
-    Map<String, Integer> scoreStorage = new HashMap<>();
+    Map<String, Integer> playerScoreList = new HashMap<>();
 
     @PostConstruct
     public void loadScoreData() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             // Load the file from the classpath
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/scoreData.json");
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/playerScoreList.json");
 
             if (inputStream != null) {
-                scoreStorage = objectMapper.readValue(inputStream, new TypeReference<Map<String, Integer>>() {});
+                playerScoreList = objectMapper.readValue(inputStream, new TypeReference<Map<String, Integer>>() {});
                 System.out.println("Scores loaded successfully.");
             } else {
                 System.out.println("No saved scores found, starting fresh.");
@@ -45,8 +45,8 @@ public class PlayerScoreListController {
             return ResponseEntity.badRequest().body("playerId or score cannot be null.");
         }
 
-        boolean isUpdate = scoreStorage.containsKey(playerScore.getPlayerId());
-        scoreStorage.put(playerScore.getPlayerId(), playerScore.getScore());
+        boolean isUpdate = playerScoreList.containsKey(playerScore.getPlayerId());
+        playerScoreList.put(playerScore.getPlayerId(), playerScore.getScore());
 
         try {
             // Get the path to the "data" folder inside the main package
@@ -56,9 +56,9 @@ public class PlayerScoreListController {
             }
 
             // Write the JSON file inside the "data" folder
-            File file = new File(dataFolder, "scoreData.json");
+            File file = new File(dataFolder, "playerScoreList.json");
             ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.writeValue(file, scoreStorage);
+            objectMapper.writeValue(file, playerScoreList);
 
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save scores.");
@@ -74,8 +74,8 @@ public class PlayerScoreListController {
 
     @GetMapping("/retrieve/{playerId}")
     public ResponseEntity<?> getScore(@PathVariable("playerId") String playerId) {
-        if (scoreStorage.containsKey(playerId)) {
-            return ResponseEntity.ok(scoreStorage.get(playerId));
+        if (playerScoreList.containsKey(playerId)) {
+            return ResponseEntity.ok(playerScoreList.get(playerId));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("playerId not found");
         }
