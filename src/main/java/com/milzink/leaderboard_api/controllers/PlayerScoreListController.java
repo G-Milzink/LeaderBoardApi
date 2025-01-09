@@ -21,10 +21,10 @@ public class PlayerScoreListController {
     Map<String, Integer> playerScoreList = new HashMap<>();
 
     @PostConstruct
-    public void loadScoreData() {
+    public void loadPlayerScores() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            // Load the file from the classpath
+
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/playerScoreList.json");
 
             if (inputStream != null) {
