@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/scorelist")
+@RequestMapping("/playerscores")
 public class PlayerScoreListController {
 
     Map<String, Integer> playerScoreList = new HashMap<>();
@@ -30,8 +30,6 @@ public class PlayerScoreListController {
             if (inputStream != null) {
                 playerScoreList = objectMapper.readValue(inputStream, new TypeReference<Map<String, Integer>>() {});
                 System.out.println("ScoreList loaded successfully.");
-            } else {
-                System.out.println("ScoreList loaded successfully but no data was found.");
             }
         } catch (IOException e) {
             System.err.println("Failed to load ScoreList: " + e.getMessage());
@@ -41,8 +39,11 @@ public class PlayerScoreListController {
     @PostMapping("/store")
     public ResponseEntity<String> postScore(@RequestBody ScoreDTO playerScore) {
 
-        if (playerScore.getPlayerId() == null || playerScore.getScore() == null) {
-            return ResponseEntity.badRequest().body("playerId or score cannot be null.");
+        if (playerScore.getPlayerId() == null) {
+            return ResponseEntity.badRequest().body("PlayerId can not be null.");
+        }
+        if (playerScore.getScore() == null) {
+            return ResponseEntity.badRequest().body("Score can not be null.");
         }
 
         boolean isUpdate = playerScoreList.containsKey(playerScore.getPlayerId());

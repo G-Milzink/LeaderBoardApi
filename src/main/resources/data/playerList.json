@@ -1,6 +1,1 @@
-{
-  "nullPlayer": {
-    "password": "nullPassword",
-    "email": "email@adress.com"
-  }
-}
+{"nullPlayer":{"password":"nullPassword","email":"email@adress.com"}}
