@@ -1,17 +1,16 @@
 package com.milzink.leaderboard_api.utillities;
 
-public class PlayerDetails {
+public class PlayerDTO {
 
     String password;
     String email;
 
-    public PlayerDetails() {
-
+    public PlayerDTO() {
     }
 
-    public PlayerDetails(String password, String email) {
+    public PlayerDTO(String password, String email) {
         this.password = password;
-        this. email = email;
+        this.email = email;
     }
 
     public void setEmail(String email) {
@@ -19,7 +18,7 @@ public class PlayerDetails {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setPassword(String password) {
@@ -27,7 +26,7 @@ public class PlayerDetails {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
 }

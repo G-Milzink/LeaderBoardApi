@@ -2,7 +2,7 @@ package com.milzink.leaderboard_api.controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.milzink.leaderboard_api.utillities.PlayerDetails;
+import com.milzink.leaderboard_api.utillities.PlayerDTO;
 import jakarta.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping("/player-details")
 public class PlayerListController {
 
-   Map<String, PlayerDetails> playerDetailsList = new HashMap<>();
+   Map<String, PlayerDTO> playerDetailsList = new HashMap<>();
 
    @PostConstruct
    public void loadPlayerDetails() {
@@ -24,13 +24,13 @@ public class PlayerListController {
            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/playerList.json");
 
            if (inputStream != null) {
-               playerDetailsList = objectMapper.readValue(inputStream, new TypeReference<Map<String, PlayerDetails>>() {});
-               System.out.println("PlayerList loaded succesfully");
+               playerDetailsList = objectMapper.readValue(inputStream, new TypeReference<Map<String, PlayerDTO>>() {});
+               System.out.println("PlayerList loaded successfully");
            } else {
-               System.out.println("PlayerList is empty");
+               System.out.println("PlayerList loaded successfully but no data is present.");
            }
        } catch (IOException e) {
-           System.out.println("Failed to load PlayerList" + e.getMessage());
+           System.out.println("Failed to load PlayerList: " + e.getMessage());
        }
    }
 

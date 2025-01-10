@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/score")
+@RequestMapping("/scorelist")
 public class PlayerScoreListController {
 
     Map<String, Integer> playerScoreList = new HashMap<>();
@@ -31,10 +31,10 @@ public class PlayerScoreListController {
                 playerScoreList = objectMapper.readValue(inputStream, new TypeReference<Map<String, Integer>>() {});
                 System.out.println("ScoreList loaded successfully.");
             } else {
-                System.out.println("ScoreList is empty.");
+                System.out.println("ScoreList loaded successfully but no data was found.");
             }
         } catch (IOException e) {
-            System.err.println("Failed to load scores: " + e.getMessage());
+            System.err.println("Failed to load ScoreList: " + e.getMessage());
         }
     }
 
