@@ -2,7 +2,7 @@ package com.milzink.leaderboard_api.controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.milzink.leaderboard_api.utillities.TOOAY_ScoreDTO;
+import com.milzink.leaderboard_api.utillities.TOAO_ScoreDTO;
 import jakarta.annotation.PostConstruct;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/playerscores")
-public class TOOAY_PlayerScoreListController {
+public class TOAO_PlayerScoreListController {
 
     Map<String, Integer> playerScoreList = new HashMap<>();
 
@@ -29,7 +29,7 @@ public class TOOAY_PlayerScoreListController {
 
             if (inputStream != null) {
                 playerScoreList = objectMapper.readValue(inputStream, new TypeReference<Map<String, Integer>>() {});
-                System.out.println("ScoreList loaded successfully.");
+                System.out.println("TOAO ScoreList loaded successfully.");
             }
         } catch (IOException e) {
             System.err.println("Failed to load ScoreList: " + e.getMessage());
@@ -37,7 +37,7 @@ public class TOOAY_PlayerScoreListController {
     }
 
     @PostMapping("/store")
-    public ResponseEntity<String> postScore(@RequestBody TOOAY_ScoreDTO playerScore) {
+    public ResponseEntity<String> postScore(@RequestBody TOAO_ScoreDTO playerScore) {
 
         if (playerScore.getPlayerId() == null) {
             return ResponseEntity.badRequest().body("PlayerId can not be null.");

@@ -1,16 +1,16 @@
 package com.milzink.leaderboard_api.utillities;
 
-public class TOOAY_ScoreDTO {
+public class TOAO_ScoreDTO {
 
     static String playerId;
     static Integer score;
 
-    public TOOAY_ScoreDTO() {
+    public TOAO_ScoreDTO() {
     }
 
-    public TOOAY_ScoreDTO(String playerId, int score) {
-        TOOAY_ScoreDTO.playerId = playerId;
-        TOOAY_ScoreDTO.score = score;
+    public TOAO_ScoreDTO(String playerId, int score) {
+        TOAO_ScoreDTO.playerId = playerId;
+        TOAO_ScoreDTO.score = score;
     }
 
     public Integer getScore() {
@@ -18,7 +18,7 @@ public class TOOAY_ScoreDTO {
     }
 
     public void setScore(int score) {
-        TOOAY_ScoreDTO.score = score;
+        TOAO_ScoreDTO.score = score;
     }
 
     public String getPlayerId() {
@@ -26,6 +26,6 @@ public class TOOAY_ScoreDTO {
     }
 
     public void setPlayerId(String playerId) {
-        TOOAY_ScoreDTO.playerId = playerId;
+        TOAO_ScoreDTO.playerId = playerId;
     }
 }
