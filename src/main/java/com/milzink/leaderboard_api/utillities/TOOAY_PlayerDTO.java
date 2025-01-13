@@ -1,14 +1,14 @@
 package com.milzink.leaderboard_api.utillities;
 
-public class PlayerDTO {
+public class TOOAY_PlayerDTO {
 
     String password;
     String email;
 
-    public PlayerDTO() {
+    public TOOAY_PlayerDTO() {
     }
 
-    public PlayerDTO(String password, String email) {
+    public TOOAY_PlayerDTO(String password, String email) {
         this.password = password;
         this.email = email;
     }

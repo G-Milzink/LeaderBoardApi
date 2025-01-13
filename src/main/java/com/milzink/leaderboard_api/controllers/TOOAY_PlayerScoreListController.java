@@ -2,7 +2,7 @@ package com.milzink.leaderboard_api.controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.milzink.leaderboard_api.utillities.ScoreDTO;
+import com.milzink.leaderboard_api.utillities.TOOAY_ScoreDTO;
 import jakarta.annotation.PostConstruct;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/playerscores")
-public class PlayerScoreListController {
+public class TOOAY_PlayerScoreListController {
 
     Map<String, Integer> playerScoreList = new HashMap<>();
 
@@ -37,7 +37,7 @@ public class PlayerScoreListController {
     }
 
     @PostMapping("/store")
-    public ResponseEntity<String> postScore(@RequestBody ScoreDTO playerScore) {
+    public ResponseEntity<String> postScore(@RequestBody TOOAY_ScoreDTO playerScore) {
 
         if (playerScore.getPlayerId() == null) {
             return ResponseEntity.badRequest().body("PlayerId can not be null.");

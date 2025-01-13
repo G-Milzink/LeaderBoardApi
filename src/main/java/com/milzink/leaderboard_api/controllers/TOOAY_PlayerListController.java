@@ -2,7 +2,7 @@ package com.milzink.leaderboard_api.controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.milzink.leaderboard_api.utillities.PlayerDTO;
+import com.milzink.leaderboard_api.utillities.TOOAY_PlayerDTO;
 import jakarta.annotation.PostConstruct;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +16,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/playerlist")
-public class PlayerListController {
+public class TOOAY_PlayerListController {
 
-   Map<String, PlayerDTO> playerDetailsList = new HashMap<>();
+   Map<String, TOOAY_PlayerDTO> playerDetailsList = new HashMap<>();
 
    @PostConstruct
    public void loadPlayerDetails() {
@@ -27,7 +27,7 @@ public class PlayerListController {
            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/playerList.json");
 
            if (inputStream != null) {
-               playerDetailsList = objectMapper.readValue(inputStream, new TypeReference<Map<String, PlayerDTO>>() {});
+               playerDetailsList = objectMapper.readValue(inputStream, new TypeReference<Map<String, TOOAY_PlayerDTO>>() {});
                System.out.println("PlayerList loaded successfully");
            }
        } catch (IOException e) {
@@ -55,8 +55,8 @@ public class PlayerListController {
        String playerId = newPlayer.get("playerId");
        String password = newPlayer.get("password");
        String email = newPlayer.get("email");
-       PlayerDTO playerDTO = new PlayerDTO(password,email);
-       playerDetailsList.put(playerId, playerDTO);
+       TOOAY_PlayerDTO TOOAYPlayerDTO = new TOOAY_PlayerDTO(password,email);
+       playerDetailsList.put(playerId, TOOAYPlayerDTO);
 
        try {
            // Get the path to the "data" folder inside the main package
