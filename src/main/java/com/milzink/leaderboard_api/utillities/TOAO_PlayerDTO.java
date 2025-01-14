@@ -28,5 +28,4 @@ public class TOAO_PlayerDTO {
     public String getPassword() {
         return this.password;
     }
-
 }

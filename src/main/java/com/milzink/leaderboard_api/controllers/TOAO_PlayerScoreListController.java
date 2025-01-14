@@ -50,13 +50,11 @@ public class TOAO_PlayerScoreListController {
         playerScoreList.put(playerScore.getPlayerId(), playerScore.getScore());
 
         try {
-            // Get the path to the "data" folder inside the main package
             File dataFolder = new File("src/main/resources/data");
             if (!dataFolder.exists()) {
-                dataFolder.mkdirs(); // Create the folder if it doesn't exist
+                dataFolder.mkdirs();
             }
 
-            // Write the JSON file inside the "data" folder
             File file = new File(dataFolder, "playerScoreList.json");
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writeValue(file, playerScoreList);
@@ -64,7 +62,6 @@ public class TOAO_PlayerScoreListController {
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save scores.");
         }
-
 
         if (isUpdate) {
             return ResponseEntity.ok("Player score updated successfully.");
