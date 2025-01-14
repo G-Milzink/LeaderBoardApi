@@ -2,30 +2,31 @@ package com.milzink.leaderboard_api.utillities;
 
 public class TOAO_ScoreDTO {
 
-    static String playerId;
-    static Integer score;
+    private String playerId;
+    private Integer score;
 
     public TOAO_ScoreDTO() {
     }
 
     public TOAO_ScoreDTO(String playerId, int score) {
-        TOAO_ScoreDTO.playerId = playerId;
-        TOAO_ScoreDTO.score = score;
+        this.playerId = playerId;
+        this.score = score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public Integer getScore() {
         return score;
     }
 
-    public void setScore(int score) {
-        TOAO_ScoreDTO.score = score;
+    public void setPlayerId(String playerId) {
+        this.playerId = playerId;
     }
 
     public String getPlayerId() {
         return playerId;
     }
 
-    public void setPlayerId(String playerId) {
-        TOAO_ScoreDTO.playerId = playerId;
-    }
 }

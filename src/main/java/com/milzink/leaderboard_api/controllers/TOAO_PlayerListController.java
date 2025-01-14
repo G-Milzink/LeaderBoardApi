@@ -52,7 +52,7 @@ public class TOAO_PlayerListController {
        }
 
        if (playerDetailsList.containsKey(newPlayer.get("playerId"))) {
-           return ResponseEntity.badRequest().body("PlayerId must be unique");
+           return ResponseEntity.badRequest().body("PlayerId already taken");
        }
 
        String playerId = newPlayer.get("playerId");
@@ -80,4 +80,6 @@ public class TOAO_PlayerListController {
 
        return ResponseEntity.ok("New player stored successfully");
    }
+
+
 }

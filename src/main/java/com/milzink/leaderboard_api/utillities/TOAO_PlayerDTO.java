@@ -4,10 +4,10 @@ import java.time.LocalDate;
 
 public class TOAO_PlayerDTO {
 
-    String password;
-    String email;
+    private String password;
+    private String email;
 
-    LocalDate lastLogin = LocalDate.now();
+    private LocalDate lastLogin = LocalDate.now();
 
     public TOAO_PlayerDTO() {
     }
