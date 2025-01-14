@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/playerlist")
+@RequestMapping("/toao/playerlist")
 public class TOAO_PlayerListController {
 
    Map<String, TOAO_PlayerDTO> playerDetailsList = new HashMap<>();
