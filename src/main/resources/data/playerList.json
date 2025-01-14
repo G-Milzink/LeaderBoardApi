@@ -1,1 +1,11 @@
-{"nullPlayer":{"password":"nullPassword","email":"email@adress.com"}}
+{
+  "nullPlayer": {
+    "password": "nullPassword",
+    "email": "email@adress.com",
+    "lastLogin": [
+      2025,
+      1,
+      14
+    ]
+  }
+}

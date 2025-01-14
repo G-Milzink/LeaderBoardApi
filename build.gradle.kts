@@ -24,6 +24,8 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
 	implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+
 
 }
 

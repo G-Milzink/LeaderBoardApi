@@ -1,9 +1,13 @@
 package com.milzink.leaderboard_api.utillities;
 
+import java.time.LocalDate;
+
 public class TOAO_PlayerDTO {
 
     String password;
     String email;
+
+    LocalDate lastLogin = LocalDate.now();
 
     public TOAO_PlayerDTO() {
     }
@@ -28,4 +32,13 @@ public class TOAO_PlayerDTO {
     public String getPassword() {
         return this.password;
     }
+
+    public void setLastLogin(LocalDate lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public LocalDate getLastLogin() {
+        return this.lastLogin;
+    }
+
 }

@@ -2,6 +2,7 @@ package com.milzink.leaderboard_api.controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.milzink.leaderboard_api.utillities.TOAO_PlayerDTO;
 import jakarta.annotation.PostConstruct;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class TOAO_PlayerListController {
    public void loadPlayerDetails() {
        try {
            ObjectMapper objectMapper = new ObjectMapper();
+           objectMapper.registerModule(new JavaTimeModule());
            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/playerList.json");
 
            if (inputStream != null) {
@@ -33,6 +35,7 @@ public class TOAO_PlayerListController {
        } catch (IOException e) {
            System.out.println("Failed to load PlayerList: " + e.getMessage());
        }
+       System.out.println(playerDetailsList);
    }
 
    @PostMapping("/store")
@@ -55,8 +58,8 @@ public class TOAO_PlayerListController {
        String playerId = newPlayer.get("playerId");
        String password = newPlayer.get("password");
        String email = newPlayer.get("email");
-       TOAO_PlayerDTO TOOAYPlayerDTO = new TOAO_PlayerDTO(password,email);
-       playerDetailsList.put(playerId, TOOAYPlayerDTO);
+       TOAO_PlayerDTO newPlayerDTO = new TOAO_PlayerDTO(password,email);
+       playerDetailsList.put(playerId, newPlayerDTO);
 
        try {
            // Get the path to the "data" folder inside the main package
@@ -68,6 +71,7 @@ public class TOAO_PlayerListController {
            // Write the JSON file inside the "data" folder
            File file = new File(dataFolder, "playerList.json");
            ObjectMapper objectMapper = new ObjectMapper();
+           objectMapper.registerModule(new JavaTimeModule());
            objectMapper.writeValue(file, playerDetailsList);
 
        } catch (IOException e) {
