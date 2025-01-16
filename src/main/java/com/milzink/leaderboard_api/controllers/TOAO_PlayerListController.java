@@ -81,5 +81,4 @@ public class TOAO_PlayerListController {
        return ResponseEntity.ok("New player stored successfully");
    }
 
-
 }
