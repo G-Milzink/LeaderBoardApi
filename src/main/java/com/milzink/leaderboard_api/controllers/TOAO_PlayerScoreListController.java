@@ -25,7 +25,7 @@ public class TOAO_PlayerScoreListController {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
 
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/playerScoreList.json");
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/TOAO_PlayerScoreList.json");
 
             if (inputStream != null) {
                 playerScoreList = objectMapper.readValue(inputStream, new TypeReference<Map<String, Integer>>() {});
@@ -55,7 +55,7 @@ public class TOAO_PlayerScoreListController {
                 dataFolder.mkdirs();
             }
 
-            File file = new File(dataFolder, "playerScoreList.json");
+            File file = new File(dataFolder, "TOAO_PlayerScoreList.json");
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writeValue(file, playerScoreList);
 

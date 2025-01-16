@@ -19,14 +19,15 @@ import java.util.Map;
 @RequestMapping("/toao/playerlist")
 public class TOAO_PlayerRegistrationController {
 
-   Map<String, TOAO_PlayerDTO> playerDetailsList = new HashMap<>();
 
+   Map<String, TOAO_PlayerDTO> playerDetailsList = new HashMap<>();
+   /*
    @PostConstruct
    public void loadPlayerDetails() {
        try {
            ObjectMapper objectMapper = new ObjectMapper();
            objectMapper.registerModule(new JavaTimeModule());
-           InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/playerList.json");
+           InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/TOAO_PlayerList.json");
 
            if (inputStream != null) {
                playerDetailsList = objectMapper.readValue(inputStream, new TypeReference<Map<String, TOAO_PlayerDTO>>() {});
@@ -35,10 +36,10 @@ public class TOAO_PlayerRegistrationController {
        } catch (IOException e) {
            System.out.println("Failed to load PlayerList: " + e.getMessage());
        }
-       System.out.println(playerDetailsList);
    }
+   */
 
-   @PostMapping("/store")
+   @PostMapping("/addplayer")
    public ResponseEntity<String> addPlayer(@RequestBody Map<String, String> newPlayer) {
 
        if (newPlayer.get("playerId").isBlank()) {
@@ -69,7 +70,7 @@ public class TOAO_PlayerRegistrationController {
            }
 
            // Write the JSON file inside the "data" folder
-           File file = new File(dataFolder, "playerList.json");
+           File file = new File(dataFolder, "TOAO_PlayerList.json");
            ObjectMapper objectMapper = new ObjectMapper();
            objectMapper.registerModule(new JavaTimeModule());
            objectMapper.writeValue(file, playerDetailsList);
