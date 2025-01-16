@@ -1,9 +1,9 @@
 package com.milzink.leaderboard_api.services;
 
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class TOAO_DataCleanUpService {
 
     public TOAO_DataCleanUpService() {

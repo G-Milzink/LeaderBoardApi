@@ -19,26 +19,7 @@ import java.util.Map;
 @RequestMapping("/toao/playerlist")
 public class TOAO_PlayerRegistrationController {
 
-
-   Map<String, TOAO_PlayerDTO> playerDetailsList = new HashMap<>();
-   /*
-   @PostConstruct
-   public void loadPlayerDetails() {
-       try {
-           ObjectMapper objectMapper = new ObjectMapper();
-           objectMapper.registerModule(new JavaTimeModule());
-           InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/TOAO_PlayerList.json");
-
-           if (inputStream != null) {
-               playerDetailsList = objectMapper.readValue(inputStream, new TypeReference<Map<String, TOAO_PlayerDTO>>() {});
-               System.out.println("TOAO PlayerList loaded successfully");
-           }
-       } catch (IOException e) {
-           System.out.println("Failed to load PlayerList: " + e.getMessage());
-       }
-   }
-   */
-
+    
    @PostMapping("/addplayer")
    public ResponseEntity<String> addPlayer(@RequestBody Map<String, String> newPlayer) {
 
@@ -52,34 +33,18 @@ public class TOAO_PlayerRegistrationController {
            return ResponseEntity.badRequest().body("Email field can not be blank.");
        }
 
-       if (playerDetailsList.containsKey(newPlayer.get("playerId"))) {
-           return ResponseEntity.badRequest().body("PlayerId already taken");
-       }
-
-       String playerId = newPlayer.get("playerId");
-       String password = newPlayer.get("password");
-       String email = newPlayer.get("email");
-       TOAO_PlayerDTO newPlayerDTO = new TOAO_PlayerDTO(password,email);
-       playerDetailsList.put(playerId, newPlayerDTO);
 
        try {
-           // Get the path to the "data" folder inside the main package
-           File dataFolder = new File("src/main/resources/data");
-           if (!dataFolder.exists()) {
-               dataFolder.mkdirs(); // Create the folder if it doesn't exist
-           }
-
-           // Write the JSON file inside the "data" folder
-           File file = new File(dataFolder, "TOAO_PlayerList.json");
-           ObjectMapper objectMapper = new ObjectMapper();
-           objectMapper.registerModule(new JavaTimeModule());
-           objectMapper.writeValue(file, playerDetailsList);
-
-       } catch (IOException e) {
-           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save PlayerList.");
+           toaoPlayerListService.addPlayer(
+                   newPlayer.get("playerId"),
+                   newPlayer.get("password"),
+                   newPlayer.get("email")
+           );
+            return ResponseEntity.ok("New player stored succesfully!");
+       } catch (IllegalArgumentException e) {
+           return ResponseEntity.badRequest().body(e.getMessage());
+       } catch (RuntimeException e) {
+           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured: " + e.getMessage());
        }
-
-       return ResponseEntity.ok("New player stored successfully");
    }
-
 }

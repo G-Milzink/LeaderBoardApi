@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.milzink.leaderboard_api.utillities.TOAO_PlayerDTO;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+@Service
 public class TOAO_PlayerListService {
 
     Map<String, TOAO_PlayerDTO> TOAO_PlayerList = new HashMap<>();
