@@ -24,16 +24,18 @@ public class TOAO_PlayerListService {
 
     public void loadPlayerList() {
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.registerModule(new JavaTimeModule());
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/TOAO_PlayerList.json");
-
-            if (inputStream != null) {
-                TOAO_PlayerList = objectMapper.readValue(inputStream, new TypeReference<Map<String, TOAO_PlayerDTO>>() {});
-                System.out.println("TOAO PlayerList loaded successfully");
+            File file = new File(System.getProperty("user.dir") + "/data/TOAO_PlayerList.json");
+            if (file.exists()) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.registerModule(new JavaTimeModule());
+                TOAO_PlayerList = objectMapper.readValue(file, new TypeReference<Map<String, TOAO_PlayerDTO>>() {});
+                System.out.println("Player list loaded from: " + file.getAbsolutePath());
+            } else {
+                System.out.println("No existing player list found. Starting fresh.");
             }
         } catch (IOException e) {
-            System.out.println("Failed to load PlayerList: " + e.getMessage());
+            System.err.println("Failed to load player list: " + e.getMessage());
+            TOAO_PlayerList = new HashMap<>(); // Initialize empty map as fallback
         }
     }
 
@@ -51,7 +53,7 @@ public class TOAO_PlayerListService {
 
     private void savePlayerList() {
         try {
-            File dataFolder = new File("/src/main/resources/data");
+            File dataFolder = new File(System.getProperty("user.dir") + "/data");
             if (!dataFolder.exists()) {
                 dataFolder.mkdirs();
             }
@@ -60,6 +62,7 @@ public class TOAO_PlayerListService {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
             objectMapper.writeValue(file, TOAO_PlayerList);
+            System.out.println("Player list saved to: " + file.getAbsolutePath());
         } catch (IOException e) {
             throw new RuntimeException("Failed to save playerlist", e);
         }

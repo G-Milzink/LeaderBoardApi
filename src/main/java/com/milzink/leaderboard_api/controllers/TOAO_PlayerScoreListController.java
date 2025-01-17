@@ -2,6 +2,8 @@ package com.milzink.leaderboard_api.controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.milzink.leaderboard_api.utillities.TOAO_PlayerDTO;
 import com.milzink.leaderboard_api.utillities.TOAO_ScoreDTO;
 import jakarta.annotation.PostConstruct;
 import org.springframework.http.HttpStatus;
@@ -23,16 +25,18 @@ public class TOAO_PlayerScoreListController {
     @PostConstruct
     public void loadPlayerScores() {
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("data/TOAO_PlayerScoreList.json");
-
-            if (inputStream != null) {
-                playerScoreList = objectMapper.readValue(inputStream, new TypeReference<Map<String, Integer>>() {});
-                System.out.println("TOAO ScoreList loaded successfully.");
+            File file = new File(System.getProperty("user.dir") + "/data/TOAO_PlayerScoreList.json");
+            if (file.exists()) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.registerModule(new JavaTimeModule());
+                playerScoreList = objectMapper.readValue(file, new TypeReference<Map<String, Integer>>() {});
+                System.out.println("Score list loaded from: " + file.getAbsolutePath());
+            } else {
+                System.out.println("No existing score list found. Starting fresh.");
             }
         } catch (IOException e) {
-            System.err.println("Failed to load ScoreList: " + e.getMessage());
+            System.err.println("Failed to load player list: " + e.getMessage());
+            playerScoreList = new HashMap<>(); // Initialize empty map as fallback
         }
     }
 
@@ -50,7 +54,7 @@ public class TOAO_PlayerScoreListController {
         playerScoreList.put(playerScore.getPlayerId(), playerScore.getScore());
 
         try {
-            File dataFolder = new File("src/main/resources/data");
+            File dataFolder = new File(System.getProperty("user.dir") + "/data");
             if (!dataFolder.exists()) {
                 dataFolder.mkdirs();
             }
