@@ -3,6 +3,7 @@ package com.milzink.leaderboard_api.controllers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.milzink.leaderboard_api.services.TOAO_PlayerListService;
 import com.milzink.leaderboard_api.utillities.TOAO_PlayerDTO;
 import jakarta.annotation.PostConstruct;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("/toao/playerlist")
 public class TOAO_PlayerRegistrationController {
+
+    private final TOAO_PlayerListService toaoPlayerListService;
+
+    public TOAO_PlayerRegistrationController(TOAO_PlayerListService toaoPlayerListService) {
+        this.toaoPlayerListService = toaoPlayerListService;
+    }
 
     
    @PostMapping("/addplayer")

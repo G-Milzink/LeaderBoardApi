@@ -61,7 +61,7 @@ public class TOAO_PlayerListService {
             objectMapper.registerModule(new JavaTimeModule());
             objectMapper.writeValue(file, TOAO_PlayerList);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to load playerlist", e);
+            throw new RuntimeException("Failed to save playerlist", e);
         }
     }
 
