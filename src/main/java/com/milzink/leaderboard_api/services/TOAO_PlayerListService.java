@@ -1,18 +1,21 @@
 package com.milzink.leaderboard_api.services;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.milzink.leaderboard_api.utillities.TOAO_PlayerDTO;
-import jakarta.annotation.PostConstruct;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import jakarta.annotation.PostConstruct;
+
+import com.milzink.leaderboard_api.utillities.TOAO_PlayerDTO;
+
 
 @Service
 public class TOAO_PlayerListService {
@@ -31,7 +34,6 @@ public class TOAO_PlayerListService {
     public void loadPlayerList() {
         try {
             File file = new File(dataFolder, "TOAO_PlayerList.json");
-            System.out.println("Looking for player list at: " + file.getAbsolutePath());
             if (file.exists()) {
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.registerModule(new JavaTimeModule());

@@ -1,8 +1,8 @@
 package com.milzink.leaderboard_api.config;
 
+import org.springframework.context.annotation.Configuration;
 
 import com.milzink.leaderboard_api.services.TOAO_PlayerListService;
-import org.springframework.context.annotation.Configuration;
 import com.milzink.leaderboard_api.services.TOAO_DataCleanUpService;
 
 @Configuration
