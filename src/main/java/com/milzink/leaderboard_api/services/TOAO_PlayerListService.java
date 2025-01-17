@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.milzink.leaderboard_api.utillities.TOAO_PlayerDTO;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -17,14 +19,19 @@ public class TOAO_PlayerListService {
 
     Map<String, TOAO_PlayerDTO> TOAO_PlayerList = new HashMap<>();
 
-    public TOAO_PlayerListService() {
-        System.out.println("TOAO_PLayerListService Loaded");
+    @Value("${data.folder}")
+    private String dataFolder;
+
+    @PostConstruct
+    public void init() {
+        System.out.println("TOAO_PLayerListService started");
         loadPlayerList();
     }
 
     public void loadPlayerList() {
         try {
-            File file = new File(System.getProperty("user.dir") + "/data/TOAO_PlayerList.json");
+            File file = new File(dataFolder, "TOAO_PlayerList.json");
+            System.out.println("Looking for player list at: " + file.getAbsolutePath());
             if (file.exists()) {
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.registerModule(new JavaTimeModule());
@@ -53,19 +60,18 @@ public class TOAO_PlayerListService {
 
     private void savePlayerList() {
         try {
-            File dataFolder = new File(System.getProperty("user.dir") + "/data");
-            if (!dataFolder.exists()) {
-                dataFolder.mkdirs();
+            File file = new File(dataFolder, "TOAO_PlayerList.json");
+            File parentDir = file.getParentFile();
+            if (!parentDir.exists()) {
+                parentDir.mkdirs(); // Create directory if it doesn't exist
             }
 
-            File file = new File(dataFolder, "TOAO_PlayerList.json");
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
             objectMapper.writeValue(file, TOAO_PlayerList);
             System.out.println("Player list saved to: " + file.getAbsolutePath());
         } catch (IOException e) {
-            throw new RuntimeException("Failed to save playerlist", e);
+            throw new RuntimeException("Failed to save player list", e);
         }
     }
-
 }
