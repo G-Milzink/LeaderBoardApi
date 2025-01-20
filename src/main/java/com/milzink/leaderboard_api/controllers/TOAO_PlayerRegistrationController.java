@@ -14,8 +14,8 @@ public class TOAO_PlayerRegistrationController {
 
     private final TOAO_PlayerListService toaoPlayerListService;
 
-    public TOAO_PlayerRegistrationController(TOAO_PlayerListService toaoPlayerListService) {
-        this.toaoPlayerListService = toaoPlayerListService;
+    public TOAO_PlayerRegistrationController(TOAO_PlayerListService playerListService) {
+        this.toaoPlayerListService = playerListService;
     }
 
     

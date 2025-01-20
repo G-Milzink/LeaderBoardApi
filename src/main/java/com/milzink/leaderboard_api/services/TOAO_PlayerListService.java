@@ -76,4 +76,11 @@ public class TOAO_PlayerListService {
             throw new RuntimeException("Failed to save player list", e);
         }
     }
+
+    private boolean getPlayer(String playerId, String password) {
+
+        return TOAO_PlayerList.containsKey(playerId) && TOAO_PlayerList.get(playerId).equals(password);
+
+    }
+
 }
