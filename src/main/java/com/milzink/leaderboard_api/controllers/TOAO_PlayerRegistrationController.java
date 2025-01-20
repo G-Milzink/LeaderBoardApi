@@ -28,9 +28,9 @@ public class TOAO_PlayerRegistrationController {
        if (newPlayer.get("password").isBlank()) {
            return ResponseEntity.badRequest().body("Password field can not be blank.");
        }
-       if (newPlayer.get("email").isBlank()) {
-           return ResponseEntity.badRequest().body("Email field can not be blank.");
-       }
+//       if (newPlayer.get("email").isBlank()) {
+//           return ResponseEntity.badRequest().body("No email provided.");
+//       }
 
 
        try {
