@@ -21,11 +21,21 @@ public class TOAO_PLayerLoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> getPlayer(@RequestBody Map<String, String> playerLogin) {
+    public ResponseEntity<String> getPlayer(@RequestBody Map<String, String> playerData) {
 
-        if (toaoPlayerListService.getPlayer(playerLogin.get("playerId"), playerLogin.get("password"))) {
+        if (toaoPlayerListService.getPlayer(playerData.get("playerId"), playerData.get("password"))) {
            return ResponseEntity.ok("Player logged in successfully!");
         }
         return  ResponseEntity.badRequest().body("Invalid credentials!");
     }
+
+    @PostMapping("/remove")
+    public ResponseEntity<String> deletePlayer(@RequestBody Map<String, String> playerLogin) {
+
+        if (toaoPlayerListService.deletePlayer(playerLogin.get("playerId"), playerLogin.get("password"))) {
+            return ResponseEntity.ok("Player removed in successfully!");
+        }
+        return  ResponseEntity.badRequest().body("Invalid credentials!");
+    }
+
 }

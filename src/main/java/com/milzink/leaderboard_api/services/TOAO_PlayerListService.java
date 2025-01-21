@@ -84,4 +84,16 @@ public class TOAO_PlayerListService {
 
     }
 
+    public boolean deletePlayer(String playerId, String password) {
+
+        if (TOAO_PlayerList.containsKey(playerId) &&
+                TOAO_PlayerList.get(playerId).getPassword().equals(password)) {
+
+            TOAO_PlayerList.remove(playerId);
+            savePlayerList();
+            return true;
+        }
+        return false;
+    }
+
 }
