@@ -72,6 +72,7 @@ public class TOAO_PlayerScoreListController {
 
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writeValue(file, playerScoreList);
+            System.out.println("Player list saved to: " + file.getAbsolutePath());
 
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save scores.");

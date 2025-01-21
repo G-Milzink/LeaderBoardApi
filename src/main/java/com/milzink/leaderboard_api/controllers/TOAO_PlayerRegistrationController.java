@@ -39,7 +39,7 @@ public class TOAO_PlayerRegistrationController {
                    newPlayer.get("password"),
                    newPlayer.get("email")
            );
-            return ResponseEntity.ok("New player stored succesfully!");
+            return ResponseEntity.ok("New player stored successfully!");
        } catch (IllegalArgumentException e) {
            return ResponseEntity.badRequest().body(e.getMessage());
        } catch (RuntimeException e) {

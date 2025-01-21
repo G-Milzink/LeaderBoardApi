@@ -77,9 +77,10 @@ public class TOAO_PlayerListService {
         }
     }
 
-    private boolean getPlayer(String playerId, String password) {
+    public boolean getPlayer(String playerId, String password) {
 
-        return TOAO_PlayerList.containsKey(playerId) && TOAO_PlayerList.get(playerId).equals(password);
+        return TOAO_PlayerList.containsKey(playerId) &&
+                TOAO_PlayerList.get(playerId).getPassword().equals(password);
 
     }
 
