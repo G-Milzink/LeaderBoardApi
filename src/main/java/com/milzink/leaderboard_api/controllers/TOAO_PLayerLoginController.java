@@ -1,7 +1,6 @@
 package com.milzink.leaderboard_api.controllers;
 
 import com.milzink.leaderboard_api.services.TOAO_PlayerListService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,13 +28,6 @@ public class TOAO_PLayerLoginController {
         return  ResponseEntity.badRequest().body("Invalid credentials!");
     }
 
-    @PostMapping("/remove")
-    public ResponseEntity<String> deletePlayer(@RequestBody Map<String, String> playerLogin) {
 
-        if (toaoPlayerListService.deletePlayer(playerLogin.get("playerId"), playerLogin.get("password"))) {
-            return ResponseEntity.ok("Player removed in successfully!");
-        }
-        return  ResponseEntity.badRequest().body("Invalid credentials!");
-    }
 
 }

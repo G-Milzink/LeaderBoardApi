@@ -46,4 +46,14 @@ public class TOAO_PlayerRegistrationController {
            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured: " + e.getMessage());
        }
    }
+
+    @PostMapping("/removeplayer")
+    public ResponseEntity<String> deletePlayer(@RequestBody Map<String, String> playerLogin) {
+
+        if (toaoPlayerListService.deletePlayer(playerLogin.get("playerId"), playerLogin.get("password"))) {
+            return ResponseEntity.ok("Player removed in successfully!");
+        }
+        return  ResponseEntity.badRequest().body("Invalid credentials!");
+    }
+
 }
