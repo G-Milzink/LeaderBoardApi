@@ -1,22 +1,12 @@
 package com.milzink.leaderboard_api.controllers;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
-import com.milzink.leaderboard_api.services.TOAO_ScoreListService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
-import jakarta.annotation.PostConstruct;
-
+import com.milzink.leaderboard_api.services.TOAO_ScoreListService;
 import com.milzink.leaderboard_api.utillities.TOAO_ScoreDTO;
 
 @RestController
@@ -50,5 +40,10 @@ public class TOAO_ScoreListController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured: " + e.getMessage());
         }
+    }
+
+    @PostMapping("/getscore")
+    public ResponseEntity<Integer> getPlayer(@RequestBody Map<String, String> playerId) {
+        return ResponseEntity.ok(toaoScoreListService.getScore(playerId.get("playerId")));
     }
 }

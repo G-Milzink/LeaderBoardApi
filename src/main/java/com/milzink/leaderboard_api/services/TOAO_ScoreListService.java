@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.milzink.leaderboard_api.utillities.TOAO_PlayerDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -47,11 +46,7 @@ public class TOAO_ScoreListService {
     }
 
     public void addScore(String playerId, Integer score) {
-
-
-        //TOAO_PlayerDTO newPlayer = new TOAO_PlayerDTO(playerId, score);
         TOAO_ScoreList.put(playerId, score);
-
         saveScoreList();
     }
 
@@ -72,4 +67,10 @@ public class TOAO_ScoreListService {
         }
     }
 
+    public int getScore(String playerId) {
+           if(TOAO_ScoreList.containsKey(playerId)) {
+               return TOAO_ScoreList.get(playerId);
+           }
+           return 0;
+    }
 }
