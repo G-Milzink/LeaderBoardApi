@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.milzink.leaderboard_api.services.TOAO_ScoreListService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,82 +19,36 @@ import jakarta.annotation.PostConstruct;
 
 import com.milzink.leaderboard_api.utillities.TOAO_ScoreDTO;
 
-
 @RestController
-@RequestMapping("/toao/playerscores")
+@RequestMapping("/toao/scorelist")
 public class TOAO_ScoreListController {
 
-    Map<String, Integer> playerScoreList = new HashMap<>();
+    private final TOAO_ScoreListService toaoScoreListService;
 
-    @Value("${data.folder}")
-    private String dataFolder;
-
-
-    @PostConstruct
-    public void loadPlayerScores() {
-        try {
-            File file = new File(dataFolder, "TOAO_PlayerScoreList.json");
-            if (file.exists()) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.registerModule(new JavaTimeModule());
-                playerScoreList = objectMapper.readValue(file, new TypeReference<Map<String, Integer>>() {});
-                System.out.println("Score list loaded from: " + file.getAbsolutePath());
-            } else {
-                System.out.println("No existing score list found. Starting fresh.");
-            }
-        } catch (IOException e) {
-            System.err.println("Failed to load player list: " + e.getMessage());
-            playerScoreList = new HashMap<>(); // Initialize empty map as fallback
-        }
+    public TOAO_ScoreListController(TOAO_ScoreListService scoreListService) {
+        this.toaoScoreListService = scoreListService;
     }
 
-    @PostMapping("/store")
-    public ResponseEntity<String> postScore(@RequestBody TOAO_ScoreDTO playerScore) {
+    @PostMapping("/addscore")
+    public ResponseEntity<String> postScore(@RequestBody TOAO_ScoreDTO newScore) {
 
-        // Validate input
-        if (playerScore.getPlayerId() == null) {
+        if (newScore.getPlayerId() == null) {
             return ResponseEntity.badRequest().body("PlayerId can not be null.");
         }
-        if (playerScore.getScore() == null) {
+        if (newScore.getScore() == null) {
             return ResponseEntity.badRequest().body("Score can not be null.");
         }
 
-        // Check if the playerId is being updated or added
-        boolean isUpdate = playerScoreList.containsKey(playerScore.getPlayerId());
-        playerScoreList.put(playerScore.getPlayerId(), playerScore.getScore());
-
         try {
-            // Write to TOAO_PlayerScoreList.json
-            File file = new File(dataFolder, "TOAO_PlayerScoreList.json");
-            File parentDir = file.getParentFile();
-            if (!parentDir.exists()) {
-                parentDir.mkdirs(); // Ensure directory exists
-            }
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.writeValue(file, playerScoreList);
-            System.out.println("Player list saved to: " + file.getAbsolutePath());
-
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save scores.");
-        }
-
-        // Return appropriate response
-        if (isUpdate) {
-            return ResponseEntity.ok("Player score updated successfully.");
-        } else {
-            return ResponseEntity.ok("Player score stored successfully.");
+            toaoScoreListService.addScore(
+                    newScore.getPlayerId(),
+                    newScore.getScore()
+            );
+            return ResponseEntity.ok("New score stored successfully!");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occured: " + e.getMessage());
         }
     }
-
-
-    @GetMapping("/retrieve/{playerId}")
-    public ResponseEntity<?> getScore(@PathVariable("playerId") String playerId) {
-        if (playerScoreList.containsKey(playerId)) {
-            return ResponseEntity.ok(playerScoreList.get(playerId));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("playerId not found");
-        }
-    }
-
 }

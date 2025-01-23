@@ -25,13 +25,13 @@ public class TOAO_ScoreListService {
 
     @PostConstruct
     public void init() {
-        System.out.println("TOAO_PLayerListService started");
+        System.out.println("TOAO_ScoreListService started");
         loadScoreList();
     }
 
     public void loadScoreList() {
         try {
-            File file = new File(dataFolder, "TOAO_PlayerList.json");
+            File file = new File(dataFolder, "TOAO_ScoreList.json");
             if (file.exists()) {
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.registerModule(new JavaTimeModule());
@@ -57,7 +57,7 @@ public class TOAO_ScoreListService {
 
     private void saveScoreList() {
         try {
-            File file = new File(dataFolder, "TOAO_PlayerList.json");
+            File file = new File(dataFolder, "TOAO_ScoreList.json");
             File parentDir = file.getParentFile();
             if (!parentDir.exists()) {
                 parentDir.mkdirs(); // Create directory if it doesn't exist
