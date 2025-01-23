@@ -21,7 +21,7 @@ import com.milzink.leaderboard_api.utillities.TOAO_ScoreDTO;
 
 @RestController
 @RequestMapping("/toao/playerscores")
-public class TOAO_PlayerScoreListController {
+public class TOAO_ScoreListController {
 
     Map<String, Integer> playerScoreList = new HashMap<>();
 
