@@ -4,25 +4,15 @@ import java.time.LocalDateTime;
 
 public class TOAO_ScoreDTO {
 
-    private String playerId;
     private Integer score;
     private LocalDateTime timestamp;
 
     public TOAO_ScoreDTO() {
     }
 
-    public TOAO_ScoreDTO(String playerId, int score, LocalDateTime timestamp) {
-        this.playerId = playerId;
+    public TOAO_ScoreDTO(int score, LocalDateTime timestamp) {
         this.score = score;
         this.timestamp = timestamp;
-    }
-
-    public void setPlayerId(String playerId) {
-        this.playerId = playerId;
-    }
-
-    public String getPlayerId() {
-        return playerId;
     }
 
     public void setScore(int score) {

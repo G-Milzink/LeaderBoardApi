@@ -20,19 +20,19 @@ public class TOAO_ScoreListController {
     }
 
     @PostMapping("/addscore")
-    public ResponseEntity<String> postScore(@RequestBody TOAO_ScoreDTO newScore) {
+    public ResponseEntity<String> postScore(@RequestBody Map<String, Object> newScore) {
 
-        if (newScore.getPlayerId() == null) {
+        if (newScore.get("playerId") == null) {
             return ResponseEntity.badRequest().body("PlayerId can not be null.");
         }
-        if (newScore.getScore() == null) {
+        if (newScore.get("score") == null) {
             return ResponseEntity.badRequest().body("Score can not be null.");
         }
 
         try {
             toaoScoreListService.addScore(
-                    newScore.getPlayerId(),
-                    newScore.getScore()
+                    (String) newScore.get("playerId"),
+                    (Integer) newScore.get("score")
             );
             return ResponseEntity.ok("New score stored successfully!");
         } catch (IllegalArgumentException e) {

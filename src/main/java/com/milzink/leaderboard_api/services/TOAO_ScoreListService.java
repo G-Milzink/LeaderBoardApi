@@ -66,7 +66,6 @@ public class TOAO_ScoreListService {
 
     public void addScore(String playerId, Integer score) {
         TOAO_ScoreDTO newScore = new TOAO_ScoreDTO();
-        newScore.setPlayerId(playerId);
         newScore.setScore(score);
         newScore.setTimestamp(LocalDateTime.now());
         TOAO_ScoreList.put(playerId, newScore);
