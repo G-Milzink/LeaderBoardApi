@@ -45,11 +45,6 @@ public class TOAO_ScoreListService {
         }
     }
 
-    public void addScore(String playerId, Integer score) {
-        TOAO_ScoreList.put(playerId, score);
-        saveScoreList();
-    }
-
     private void saveScoreList() {
         try {
             File file = new File(dataFolder, "TOAO_ScoreList.json");
@@ -65,6 +60,11 @@ public class TOAO_ScoreListService {
         } catch (IOException e) {
             throw new RuntimeException("Failed to save score list", e);
         }
+    }
+
+    public void addScore(String playerId, Integer score) {
+        TOAO_ScoreList.put(playerId, score);
+        saveScoreList();
     }
 
     public int getScore(String playerId) {
@@ -83,5 +83,4 @@ public class TOAO_ScoreListService {
         }
         return false;
     }
-
 }

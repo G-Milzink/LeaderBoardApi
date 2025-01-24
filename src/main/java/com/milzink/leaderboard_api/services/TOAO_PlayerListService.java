@@ -48,18 +48,6 @@ public class TOAO_PlayerListService {
         }
     }
 
-    public void addPlayer(String playerId, String password, String email) {
-
-        if (TOAO_PlayerList.containsKey(playerId)) {
-            throw new IllegalArgumentException("PlayerId already exists");
-        }
-
-        TOAO_PlayerDTO newPlayer = new TOAO_PlayerDTO(password, email);
-        TOAO_PlayerList.put(playerId, newPlayer);
-
-        savePlayerList();
-    }
-
     private void savePlayerList() {
         try {
             File file = new File(dataFolder, "TOAO_PlayerList.json");
@@ -75,6 +63,18 @@ public class TOAO_PlayerListService {
         } catch (IOException e) {
             throw new RuntimeException("Failed to save player list", e);
         }
+    }
+
+    public void addPlayer(String playerId, String password, String email) {
+
+        if (TOAO_PlayerList.containsKey(playerId)) {
+            throw new IllegalArgumentException("PlayerId already exists");
+        }
+
+        TOAO_PlayerDTO newPlayer = new TOAO_PlayerDTO(password, email);
+        TOAO_PlayerList.put(playerId, newPlayer);
+
+        savePlayerList();
     }
 
     public boolean getPlayer(String playerId, String password) {
