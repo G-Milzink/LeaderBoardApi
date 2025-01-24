@@ -1,1 +1,15 @@
-{"nullPlayer":0}
+{
+  "nullPlayer": {
+    "playerId": "nullPlayer",
+    "score": 666,
+    "timestamp": [
+      2025,
+      1,
+      24,
+      16,
+      37,
+      41,
+      501919700
+    ]
+  }
+}

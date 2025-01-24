@@ -2,9 +2,11 @@ package com.milzink.leaderboard_api.services;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.milzink.leaderboard_api.utillities.TOAO_ScoreDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,7 @@ import jakarta.annotation.PostConstruct;
 @Service
 public class TOAO_ScoreListService {
 
-    Map<String, Integer> TOAO_ScoreList = new HashMap<>();
+    Map<String, TOAO_ScoreDTO> TOAO_ScoreList = new HashMap<>();
 
     @Value("${data.folder}")
     private String dataFolder;
@@ -34,7 +36,7 @@ public class TOAO_ScoreListService {
             if (file.exists()) {
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.registerModule(new JavaTimeModule());
-                TOAO_ScoreList = objectMapper.readValue(file, new TypeReference<Map<String, Integer>>() {});
+                TOAO_ScoreList = objectMapper.readValue(file, new TypeReference<Map<String, TOAO_ScoreDTO>>() {});
                 System.out.println("Score list loaded from: " + file.getAbsolutePath());
             } else {
                 System.out.println("No existing score list found. Starting fresh.");
@@ -50,7 +52,7 @@ public class TOAO_ScoreListService {
             File file = new File(dataFolder, "TOAO_ScoreList.json");
             File parentDir = file.getParentFile();
             if (!parentDir.exists()) {
-                parentDir.mkdirs(); // Create directory if it doesn't exist
+                parentDir.mkdirs();
             }
 
             ObjectMapper objectMapper = new ObjectMapper();
@@ -63,13 +65,18 @@ public class TOAO_ScoreListService {
     }
 
     public void addScore(String playerId, Integer score) {
-        TOAO_ScoreList.put(playerId, score);
+        TOAO_ScoreDTO newScore = new TOAO_ScoreDTO();
+        newScore.setPlayerId(playerId);
+        newScore.setScore(score);
+        newScore.setTimestamp(LocalDateTime.now());
+        TOAO_ScoreList.put(playerId, newScore);
         saveScoreList();
     }
 
     public int getScore(String playerId) {
            if(TOAO_ScoreList.containsKey(playerId)) {
-               return TOAO_ScoreList.get(playerId);
+               TOAO_ScoreDTO scoreDTO =  TOAO_ScoreList.get(playerId);
+               return scoreDTO.getScore();
            }
            return 0;
     }
