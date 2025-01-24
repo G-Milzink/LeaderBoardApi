@@ -73,4 +73,15 @@ public class TOAO_ScoreListService {
            }
            return 0;
     }
+
+    public boolean deleteScore(String playerId) {
+
+        if (TOAO_ScoreList.containsKey(playerId)) {
+            TOAO_ScoreList.remove(playerId);
+            saveScoreList();
+            return true;
+        }
+        return false;
+    }
+
 }

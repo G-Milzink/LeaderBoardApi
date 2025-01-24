@@ -43,7 +43,13 @@ public class TOAO_ScoreListController {
     }
 
     @PostMapping("/getscore")
-    public ResponseEntity<Integer> getPlayer(@RequestBody Map<String, String> playerId) {
+    public ResponseEntity<Integer> getScore(@RequestBody Map<String, String> playerId) {
         return ResponseEntity.ok(toaoScoreListService.getScore(playerId.get("playerId")));
     }
+
+    @PostMapping("/deletescore")
+    public ResponseEntity<Boolean> deleteScore(@RequestBody Map<String, String> playerId) {
+        return ResponseEntity.ok(toaoScoreListService.deleteScore(playerId.get("playerId")));
+    }
+
 }
