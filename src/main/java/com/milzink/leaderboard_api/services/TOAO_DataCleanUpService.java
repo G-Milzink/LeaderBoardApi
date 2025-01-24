@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class TOAO_DataCleanUpService {
 
     public TOAO_DataCleanUpService() {
-        System.out.println("Performed cleanup!");
+        System.out.println("TOAO_DataCleanUpService started");
     }
 
 }
