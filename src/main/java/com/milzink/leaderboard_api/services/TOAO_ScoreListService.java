@@ -89,4 +89,8 @@ public class TOAO_ScoreListService {
         }
         return false;
     }
+
+    public Map<String, TOAO_ScoreDTO> getScoreList() {
+        return  TOAO_ScoreList;
+    }
 }
