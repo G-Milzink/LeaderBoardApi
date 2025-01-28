@@ -7,5 +7,14 @@
       1,
       17
     ]
+  },
+  "nullPlayer2": {
+    "password": "nullPassword2",
+    "email": "",
+    "lastLogin": [
+      2025,
+      1,
+      28
+    ]
   }
 }
