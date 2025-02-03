@@ -29,6 +29,7 @@ public class TOAO_LeaderboardService {
         System.out.println("TOAO_LeaderboardService started");
         loadScoreList();
         System.out.println(getAllScoresSorted());
+
     }
 
     public void loadScoreList() {
