@@ -2,7 +2,6 @@ package com.milzink.leaderboard_api.controllers;
 
 import com.milzink.leaderboard_api.services.TOAO_LeaderboardService;
 import com.milzink.leaderboard_api.utillities.TOAO_ScoreDTO;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +17,12 @@ public class TOAO_LeaderboardController {
 
     public TOAO_LeaderboardController(TOAO_LeaderboardService leaderboardService) {
         this.toao_leaderboardService = leaderboardService;
+    }
+
+
+    @GetMapping("/updateleaderboard")
+    public void  loadLeaderboard() {
+        toao_leaderboardService.loadScoreList();
     }
 
 

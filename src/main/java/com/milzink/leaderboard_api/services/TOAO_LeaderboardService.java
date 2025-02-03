@@ -27,9 +27,6 @@ public class TOAO_LeaderboardService {
     @PostConstruct
     public void init() {
         System.out.println("TOAO_LeaderboardService started");
-        loadScoreList();
-        System.out.println(getAllScoresSorted());
-
     }
 
     public void loadScoreList() {
