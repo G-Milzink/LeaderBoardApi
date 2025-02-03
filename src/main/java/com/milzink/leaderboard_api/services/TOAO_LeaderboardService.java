@@ -6,13 +6,15 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
 public class TOAO_LeaderboardService {
 
-    Map<String, TOAO_ScoreDTO> TOAO_Leaderboard_ScoreList = new HashMap<>();
+    Map<String, TOAO_ScoreDTO> TOAO_UnsortedScoreList = new HashMap<>();
     private final TOAO_ScoreListService toaoScoreListService;
 
     public TOAO_LeaderboardService(TOAO_ScoreListService scoreListService) {
@@ -25,10 +27,28 @@ public class TOAO_LeaderboardService {
     @PostConstruct
     public void init() {
         System.out.println("TOAO_LeaderboardService started");
+        loadScoreList();
+        System.out.println(getAllScoresSorted());
+    }
 
-        TOAO_Leaderboard_ScoreList = toaoScoreListService.getScoreList();
-        System.out.println(TOAO_Leaderboard_ScoreList);
+    public void loadScoreList() {
+        TOAO_UnsortedScoreList = toaoScoreListService.getScoreList();
+    }
 
+    public List<Map.Entry<String, TOAO_ScoreDTO>> getAllScoresSorted() {
+        List<Map.Entry<String, TOAO_ScoreDTO>> scoreEntries = new ArrayList<>(TOAO_UnsortedScoreList.entrySet());
+        scoreEntries.sort(TOAO_LeaderboardService::compareScores);
+        return scoreEntries;
+    }
+
+    private static int compareScores(Map.Entry<String, TOAO_ScoreDTO> entry1, Map.Entry<String, TOAO_ScoreDTO> entry2) {
+        TOAO_ScoreDTO score1 = entry1.getValue();
+        TOAO_ScoreDTO score2 = entry2.getValue();
+        int scoreComparison = Integer.compare(score2.getScore(), score1.getScore());
+        if (scoreComparison != 0) {
+            return scoreComparison;
+        }
+        return score1.getTimestamp().compareTo(score2.getTimestamp());
     }
 
 }

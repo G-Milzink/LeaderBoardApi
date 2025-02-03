@@ -31,4 +31,8 @@ public class TOAO_ScoreDTO {
         return timestamp;
     }
 
+    public String toString() {
+        return "score: " + score;
+    }
+
 }

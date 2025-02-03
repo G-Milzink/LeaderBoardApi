@@ -1,3 +1,8 @@
-Doing:
-Login system (PlayerListController)
-    -
+ToDo:
+
+LeaderBoardController:
+
+
+endpoint to load score list
+endpoint to sort score list... done?
+
