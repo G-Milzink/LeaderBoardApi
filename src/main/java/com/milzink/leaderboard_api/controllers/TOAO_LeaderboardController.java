@@ -2,9 +2,8 @@ package com.milzink.leaderboard_api.controllers;
 
 import com.milzink.leaderboard_api.services.TOAO_LeaderboardService;
 import com.milzink.leaderboard_api.utillities.TOAO_ScoreDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -30,5 +29,16 @@ public class TOAO_LeaderboardController {
     public List<Map.Entry<String, TOAO_ScoreDTO>> leaderboardFull() {
         return toao_leaderboardService.getAllScoresSorted();
     }
+
+    @GetMapping("/getlimitedboard")
+    public ResponseEntity<List<TOAO_ScoreDTO>> getLimitedBoard(@RequestParam int limit) {
+
+        List<Map.Entry<String, TOAO_ScoreDTO>> sortedScores = toao_leaderboardService.getTopScores(limit);
+        List<TOAO_ScoreDTO> response = sortedScores.stream()
+                .map(Map.Entry::getValue)
+                .toList();
+        return ResponseEntity.ok(response);
+    }
+
 
 }

@@ -39,6 +39,13 @@ public class TOAO_LeaderboardService {
         return scoreEntries;
     }
 
+    public List<Map.Entry<String, TOAO_ScoreDTO>> getTopScores(int limit) {
+        List<Map.Entry<String, TOAO_ScoreDTO>> scoreEntries = getAllScoresSorted();
+        int safeLimit = Math.min(limit, scoreEntries.size());
+        List<Map.Entry<String, TOAO_ScoreDTO>> limitedList = scoreEntries.subList(0, safeLimit);
+        return limitedList;
+    }
+
     private static int compareScores(Map.Entry<String, TOAO_ScoreDTO> entry1, Map.Entry<String, TOAO_ScoreDTO> entry2) {
         TOAO_ScoreDTO score1 = entry1.getValue();
         TOAO_ScoreDTO score2 = entry2.getValue();
