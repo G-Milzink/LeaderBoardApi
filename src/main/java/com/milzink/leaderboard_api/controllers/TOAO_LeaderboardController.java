@@ -18,12 +18,10 @@ public class TOAO_LeaderboardController {
         this.toao_leaderboardService = leaderboardService;
     }
 
-
     @GetMapping("/updateleaderboard")
     public void  loadLeaderboard() {
         toao_leaderboardService.loadScoreList();
     }
-
 
     @GetMapping("/getfullboard")
     public List<Map.Entry<String, TOAO_ScoreDTO>> leaderboardFull() {
@@ -31,14 +29,11 @@ public class TOAO_LeaderboardController {
     }
 
     @GetMapping("/getlimitedboard")
-    public ResponseEntity<List<TOAO_ScoreDTO>> getLimitedBoard(@RequestParam int limit) {
-
+    public ResponseEntity<List<Map.Entry<String, TOAO_ScoreDTO>>> getLimitedBoard(@RequestParam int limit) {
         List<Map.Entry<String, TOAO_ScoreDTO>> sortedScores = toao_leaderboardService.getTopScores(limit);
-        List<TOAO_ScoreDTO> response = sortedScores.stream()
-                .map(Map.Entry::getValue)
-                .toList();
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(sortedScores);
     }
-
-
 }
+
+
+
