@@ -6,7 +6,6 @@ public class TOAO_PlayerDTO {
 
     private String password;
     private String email;
-
     private LocalDate lastLogin = LocalDate.now();
 
     public TOAO_PlayerDTO() {

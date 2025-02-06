@@ -1,6 +1,5 @@
 package com.milzink.leaderboard_api.services;
 
-
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,12 +1,11 @@
 package com.milzink.leaderboard_api.controllers;
 
-import com.milzink.leaderboard_api.services.TOAO_LeaderboardService;
-import com.milzink.leaderboard_api.utillities.TOAO_ScoreDTO;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import com.milzink.leaderboard_api.services.TOAO_LeaderboardService;
+import com.milzink.leaderboard_api.utillities.TOAO_ScoreDTO;
 
 @RestController
 @RequestMapping("/toao/leaderboards")
