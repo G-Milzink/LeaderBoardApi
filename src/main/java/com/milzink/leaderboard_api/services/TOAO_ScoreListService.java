@@ -17,6 +17,7 @@ import com.milzink.leaderboard_api.utillities.TOAO_ScoreDTO;
 public class TOAO_ScoreListService {
 
     Map<String, TOAO_ScoreDTO> TOAO_ScoreList = new HashMap<>();
+    Map<String, TOAO_ScoreDTO> TOAO_AllTimeHighScoreList = new HashMap<>();
 
     @Value("${data.folder}")
     private String dataFolder;
@@ -25,6 +26,7 @@ public class TOAO_ScoreListService {
     public void init() {
         System.out.println("TOAO_ScoreListService started");
         loadScoreList();
+        loadAllTimeHighscoreList();
     }
 
     public void loadScoreList() {
@@ -43,6 +45,24 @@ public class TOAO_ScoreListService {
             TOAO_ScoreList = new HashMap<>(); // Initialize empty map as fallback
         }
     }
+
+    public void loadAllTimeHighscoreList() {
+        try {
+            File file = new File(dataFolder, "TOAO_AllTimeHighScoreList.json");
+            if (file.exists()) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.registerModule(new JavaTimeModule());
+                TOAO_AllTimeHighScoreList = objectMapper.readValue(file, new TypeReference<Map<String, TOAO_ScoreDTO>>() {});
+                System.out.println("AllTimeHighScore list loaded from: " + file.getAbsolutePath());
+            } else {
+                System.out.println("No existing score all time highscore list found. Starting fresh.");
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to load all time highscore list: " + e.getMessage());
+            TOAO_AllTimeHighScoreList = new HashMap<>(); // Initialize empty map as fallback
+        }
+    }
+
 
     private void saveScoreList() {
         try {
@@ -67,6 +87,10 @@ public class TOAO_ScoreListService {
         newScore.setTimestamp(LocalDateTime.now());
         TOAO_ScoreList.put(playerId, newScore);
         saveScoreList();
+
+
+
+
     }
 
     public int getScore(String playerId) {
@@ -92,6 +116,10 @@ public class TOAO_ScoreListService {
         return  TOAO_ScoreList;
     }
 
+    public Boolean checkIfAllTimeHigh() {
 
+
+        return null;
+    }
 
 }
